@@ -18,7 +18,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: testing deployment with ssh
-        uses: fifsky/ssh-action@master
+        uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.HOST }}
           key:  ${{ secrets.KEY }}
