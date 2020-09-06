@@ -20,7 +20,7 @@ jobs:
       - name: testing deployment with ssh
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
+          host: ubuntu@100.27.13.133
           key:  ${{ secrets.KEY }}
           port: 22
           script: | 
