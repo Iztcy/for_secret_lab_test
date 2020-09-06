@@ -18,12 +18,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: testing deployment with ssh
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           key:  ${{ secrets.KEY }}
           port: 22
-          script: | 
+          command: | 
             cd /var/www/html/for_secret_lab_test
             git pull origin master
             composer install
