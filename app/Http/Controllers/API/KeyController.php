@@ -52,21 +52,24 @@ class KeyController extends APIBaseController
 
 	  	foreach($data_obj as  $key => $value)
 	  	{
-	  		$key_obj = KeyObject::where('key_id', $key)->first();
+	  		if(is_string($value) == true)
+	  		{
+	  			$key_obj = KeyObject::where('key_id', $key)->first();
 
-	  		if($key_obj)
-	  		{
-	  			$key_obj->value = $value;
-	  			$key_obj->save();
+		  		if($key_obj)
+		  		{
+		  			$key_obj->value = $value;
+		  			$key_obj->save();
+		  		}
+		  		else
+		  		{
+		  			$key_obj = KeyObject::create([
+		  				'key_id' => $key,
+		  				'value' => $value
+	  				]);
+		  		}
 	  		}
-	  		else
-	  		{
-	  			$key_obj = KeyObject::create([
-	  				'key_id' => $key,
-	  				'value' => $value
-  				]);
-	  		}
-  	
+  		
 	  	}
 
     	return $this->sendResponse('', 'add key completed');
