@@ -24,3 +24,6 @@ Route::post('/object/myKey', 'KeyController@set_key');
 */
 Route::get('/object/{key_id}', 'API\KeyController@get_key');
 Route::post('/object', 'API\KeyController@add_key');
+Route::get('/get_all_key', 'API\KeyController@get_all_key');
+
+
