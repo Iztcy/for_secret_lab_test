@@ -14,6 +14,13 @@ class KeyController extends APIBaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function get_all_key()
+    {
+	$key_obj = KeyObject::all();
+		
+	return $this->sendResponse($key_obj,'get all keys completed');
+    	
+    }
 
     public function get_key($key_id = '', Request $request)
     {
