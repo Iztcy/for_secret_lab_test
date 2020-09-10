@@ -31,7 +31,7 @@ class KeyController extends APIBaseController
 			$timestamp = $data['timestamp'];
 
 		if($timestamp == null)
-			$key_obj = KeyObject::where('key_id', $key_id)->get();
+			$key_obj = KeyObject::where('key_id', $key_id)->first();
 		else
 		{
 			$datetimeFormat = 'Y-m-d H:i:s';
@@ -40,7 +40,7 @@ class KeyController extends APIBaseController
 			$dt->setTimestamp($timestamp);
 			$my_date = $dt->format($datetimeFormat);
 
-			$key_obj = KeyObject::where('key_id', $key_id)->where('updated_at', $my_date)->get();
+			$key_obj = KeyObject::where('key_id', $key_id)->where('updated_at', $my_date)->first();
 		}
 
 
@@ -61,20 +61,10 @@ class KeyController extends APIBaseController
 	  	{
 	  		if(is_string($value) == true)
 	  		{
-	  			$key_obj = KeyObject::where('key_id', $key)->first();
-
-		  		if($key_obj)
-		  		{
-		  			$key_obj->value = $value;
-		  			$key_obj->save();
-		  		}
-		  		else
-		  		{
-		  			$key_obj = KeyObject::create([
-		  				'key_id' => $key,
-		  				'value' => $value
-	  				]);
-		  		}
+				$key_obj = KeyObject::create([
+					'key_id' => $key,
+					'value' => $value
+				]);
 	  		}
   		
 	  	}
