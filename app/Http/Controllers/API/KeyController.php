@@ -31,7 +31,7 @@ class KeyController extends APIBaseController
 			$timestamp = $data['timestamp'];
 
 		if($timestamp == null)
-			$key_obj = KeyObject::where('key_id', $key_id)->first();
+			$key_obj = KeyObject::where('key_id', $key_id)->latest()->first();
 		else
 		{
 			$datetimeFormat = 'Y-m-d H:i:s';
