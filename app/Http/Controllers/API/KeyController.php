@@ -77,7 +77,7 @@ class KeyController extends APIBaseController
 						]);
 					}
 
-					$timestamp = $key_obj->updated_at;
+					$timestamp = strtotime($key_obj->updated_at);
 				}
 
 			}
