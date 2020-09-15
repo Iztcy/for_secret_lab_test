@@ -48,28 +48,41 @@ class KeyController extends APIBaseController
     	
     }
 
+	public function add_key(Request $request)
+	{
+		$data = $request->getContent();
+			$data_obj = json_decode($data, true);
 
-    public function add_key(Request $request)
-    {
-    	$data = $request->getContent();
-	  	$data_obj = json_decode($data, true);
+			if($data_obj == null)
+				return $this->sendError('Data cannot be decoded', 400);
 
-	  	if($data_obj == null)
-	  		return $this->sendError('Data cannot be decoded', 400);
+			$timestamp = '';
 
-	  	foreach($data_obj as  $key => $value)
-	  	{
-	  		if(is_string($value) == true)
-	  		{
-				$key_obj = KeyObject::create([
-					'key_id' => $key,
-					'value' => $value
-				]);
-	  		}
-  		
-	  	}
+			foreach($data_obj as  $key => $value)
+			{
+				if(is_string($value) == true)
+				{
+					$key_obj = KeyObject::where('key_id', $key)->first();
 
-    	return $this->sendResponse('', 'add key completed');
-    }
+					if($key_obj)
+					{
+						$key_obj->value = $value;
+						$key_obj->save();
+					}
+					else
+					{
+						$key_obj = KeyObject::create([
+							'key_id' => $key,
+							'value' => $value
+						]);
+					}
+
+					$timestamp = $key_obj->updated_at;
+				}
+
+			}
+
+		return $this->sendResponse($timestamp, 'add key completed');
+	}
 
 }
